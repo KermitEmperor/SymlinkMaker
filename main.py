@@ -1,5 +1,6 @@
 from customtkinter import *
 from tkinter import messagebox
+from webbrowser import open_new_tab
 import os
 import ctypes
 
@@ -11,6 +12,9 @@ def is_admin() -> bool:
 
 
 def main() -> None:
+    curver = "Current Version: 1.0.0"
+    
+    
     root = CTk()
     root.title("Symbolic Link Creator")
     root.geometry("490x150")
@@ -65,6 +69,7 @@ def main() -> None:
     CTkLabel(root, text="Original file/folder:").place(relx=0.02, rely= 0.24)
     CTkEntry(root, textvariable=originalFolder, width=325).place(relx=0.25, rely= 0.24)
     CTkButton(root, text="[...]", width= 30, command=getOriginal).place(relx=0.92, rely= 0.24)
+    
 
     CTkLabel(root, text="Choose Type:").place(relx=0.02, rely= 0.45)
     menu = CTkOptionMenu(root, values=["File", "Folder", "Directory Junction"])
@@ -72,6 +77,10 @@ def main() -> None:
 
     CTkButton(root, text="Generate Symlink", command=generate).place(relx=0.375, rely = 0.8)
 
+    CTkLabel(root, text=curver).place(relx=0.02, rely = 0.8)
+    hyperlink = CTkLabel(root, text="Github repository", cursor="hand2", text_color="turquoise")
+    hyperlink.place(relx=0.78, rely= 0.8)
+    hyperlink.bind("<Button-1>", lambda e: open_new_tab("https://github.com/KermitEmperor/SymlinkMaker/"))
 
     root.mainloop()
     
@@ -81,4 +90,3 @@ if __name__ == "__main__":
     else:
         messagebox.showerror("Missing rights!", "\"mklink\" requires administrator rights (run this as admin)")
         quit()
-    
